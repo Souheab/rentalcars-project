@@ -1,103 +1,91 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import Image from 'next/image';
+import { CalendarIcon, ClockIcon, MapPinIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { DatePicker } from '@/components/ui/date-picker';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
+
+// Generate all 30-minute interval times
+const timeOptions = Array.from({ length: 48 }, (_, i) => {
+  const hours24 = Math.floor(i / 2);
+  const minutes = (i % 2) * 30;
+  const period = hours24 < 12 ? 'a.m.' : 'p.m.';
+  const hour12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
+  const minuteStr = minutes.toString().padStart(2, '0');
+  return `${hour12}:${minuteStr} ${period}`;
+});
+
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="relative h-screen bg-[url('/hero.png')] bg-cover bg-center">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40" />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <div className="absolute top-6 right-6">
+        <Button className="px-6">Sign Up</Button>
+      </div>
+      {/* Content */}
+      <div className="relative max-w-5xl mx-auto pt-24 px-6">
+        <h1 className="text-5xl font-bold text-white mb-3">Car Rental – Search, Compare & Save</h1>
+        <p className="text-lg text-white mb-8">
+          Free cancellations on most bookings · 60,000+ locations · Customer support in 30+ languages
+        </p>
+
+        {/* Search Card */}
+        <Card className="bg-white border-2 border-yellow-400 rounded-xl shadow-lg">
+          <CardContent className="flex flex-col gap-4 p-6">
+            <div className="flex gap-4">
+              <div>
+                <Label htmlFor="pickup" className="mb-1">Pick‑up location</Label>
+                <div className="relative">
+                  <MapPinIcon className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-400" size={16} />
+                  <Input id="pickup" placeholder="Airport, city or station" className="pl-8" />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="pickup-date" className="mb-1">Pick‑up date</Label>
+                <DatePicker />
+              </div>
+              <div>
+                <Label htmlFor="pickup-time" className="mb-1">Pick-up time</Label>
+                <Select>
+                  <SelectTrigger id="pickup-time">
+                    <SelectValue placeholder="Select time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {timeOptions.map(time => (
+                      <SelectItem key={time} value={time}>{time}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="dropoff-date" className="mb-1">Drop‑off date</Label>
+                <DatePicker />
+              </div>
+              <div>
+                <Label htmlFor="dropoff-time" className="mb-1">Drop-off time</Label>
+                <Select>
+                  <SelectTrigger id="dropoff-time">
+                    <SelectValue placeholder="Select time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {timeOptions.map(time => (
+                      <SelectItem key={time} value={time}>{time}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <Button className="w-full">Search</Button>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
