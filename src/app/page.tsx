@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { CalendarIcon, ClockIcon, MapPinIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -31,7 +32,9 @@ export default function HomePage() {
       </div>
 
       <div className="absolute top-6 right-6">
-        <Button className="px-6">Sign Up</Button>
+        <Link href="/signup">
+          <Button className="px-6">Sign Up</Button>
+        </Link>
       </div>
       {/* Content */}
       <div className="relative max-w-5xl mx-auto pt-24 px-6">
