@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -110,6 +111,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+.logo-font {
+  font-family: 'Righteous', sans-serif;
 }
 
 @layer base {

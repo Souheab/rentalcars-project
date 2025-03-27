@@ -26,6 +26,10 @@ export default function HomePage() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/40" />
 
+      <div className="absolute top-6 left-6">
+        <h1 className="text-2xl font-bold text-white logo-font">Rentalcars.com</h1>
+      </div>
+
       <div className="absolute top-6 right-6">
         <Button className="px-6">Sign Up</Button>
       </div>
